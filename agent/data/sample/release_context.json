@@ -1,0 +1,10 @@
+{
+  "project": "Dog Hotel (EPM-PEDH) - SAMPLE DATA",
+  "release": "R2026.4 Booking & Adoption",
+  "goal": "Let pet owners send a hotel-stay booking request online and let visitors apply to adopt a dog from 'Want a friend', with the owners handling both requests in the admin panel.",
+  "milestone_date": "2026-11-27",
+  "baseline_date": "2026-10-01",
+  "baseline_keys": [],
+  "capacity_points": 40,
+  "notes": "SAMPLE context for development. Volunteer team of ~4 part-time contributors; capacity estimated from the last two releases."
+}

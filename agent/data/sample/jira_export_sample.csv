@@ -1,0 +1,96 @@
+Summary,Issue key,Issue id,Issue Type,Status,Priority,Assignee,Reporter,Created,Updated,Sprint,Sprint,Fix Version/s,Component/s,Component/s,Component/s,Labels,Labels,Custom field (Story Points),Custom field (Epic Link),Parent,Description,Outward issue link (Blocks),Outward issue link (Blocks),Inward issue link (Blocks)
+Online booking,DHS-90,52000,Epic,In Progress,High,,Iryna Bondar,01/Sep/26 09:30 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,Backend,Admin,booking,,,,,"Scope: booking form on /prices (FE), bookings API and DB (BE), bookings page in admin, notification e-mails.
+Today bookings are taken by phone only.",,,
+Adoption applications,DHS-91,52001,Epic,In Progress,High,,Iryna Bondar,01/Sep/26 09:40 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,Admin,,adoption,,,,,"Scope: application form on the dog profile (FE), applications API (BE), applications tab in admin.",,,
+Maintenance and tech debt,DHS-92,52002,Epic,To Do,Medium,,Iryna Bondar,01/Sep/26 09:50 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,Backend,DevOps,tech-debt,,,,,"Production bugs, framework upgrade and infrastructure tasks for R2026.4.",,,
+"[FE] Booking form: UI, validation, submit to /api/bookings",DHS-101,52003,Story,In Progress,High,Andrii Koval,Kateryna Melnyk,10/Sep/26 10:15 AM,15/Oct/26 06:10 PM,DH Sprint 15,DH Sprint 16,R2026.4 Booking & Adoption,Frontend,,,booking,,5,DHS-90,,"Implement BookingRequestFormComponent, opened from the ""Book a stay"" button on /prices.
+Design: Figma > Booking > Request form v2.
+Fields: dateFrom, dateTo, dogName, breed, size (S/M/L), ownerName, phone, email, comment.
+
+h3. Acceptance criteria
+* Given /prices is open, when ""Book a stay"" is clicked, then the form opens in a modal
+* Given a required field is empty, when Submit is clicked, then the field shows a validation message and no request is sent
+* Given the form is valid, when Submit is clicked, then POST /api/bookings is called and the success screen is shown
+* Works on 375 px width
+
+Tech notes: reuse FormField and DateRange from shared/ui; validators from shared/validation.",,,DHS-102
+[BE] POST /api/bookings: DTO validation and booking_request table,DHS-102,52004,Story,In Progress,High,Dmytro Shevchuk,Kateryna Melnyk,10/Sep/26 10:40 AM,15/Oct/26 06:10 PM,DH Sprint 15,DH Sprint 16,R2026.4 Booking & Adoption,Backend,,,booking,api,3,DHS-90,,"New endpoint POST /api/bookings + table booking_request (EF migration). Publish BookingCreated event after save.
+
+h3. Acceptance criteria
+* Valid payload: 201, record saved with status NEW, BookingCreated published
+* dateTo before dateFrom: 400 with errors.dateTo
+* Invalid phone format: 400 with errors.phone
+* Unit tests for BookingValidator, coverage >= 80%",DHS-101,DHS-104,
+[FE] Booking form,DHS-103,52005,Story,To Do,Medium,Sofiia Lysenko,Sofiia Lysenko,05/Oct/26 06:20 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,,,booking,,,DHS-90,,Booking form on prices page.,,,
+"[Admin] /admin/bookings: list, Confirm / Decline, pagination",DHS-104,52006,Story,To Do,High,Andrii Koval,Kateryna Melnyk,12/Sep/26 11:00 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Admin,,,booking,,5,DHS-90,,"New admin route /admin/bookings. Table columns: arrival date, nights, dog, size, client phone, status.
+Actions call PATCH /api/admin/bookings/{id}/status.
+
+h3. Acceptance criteria
+* Given NEW requests exist, when /admin/bookings opens, then rows are sorted by arrival date
+* Given a row, when Confirm or Decline is clicked, then the status is updated and changed_at is saved
+* Given more than 20 rows, then the table is paginated (20 per page)",,,DHS-102
+[BE] Send 'booking-new' e-mail to the hotel mailbox on BookingCreated,DHS-105,52007,Story,To Do,Medium,Dmytro Shevchuk,Kateryna Melnyk,12/Sep/26 11:30 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Backend,,,booking,notifications,2,DHS-90,,"Handle BookingCreated and call MailService.SendTemplate(""booking-new"").
+Template data: dates, dog name and size, client contacts, link to /admin/bookings/{id}.
+Blocked: no SMTP on prod yet (DHS-118).",,,DHS-118
+[BE] Enclosure capacity model and GET /api/availability,DHS-106,52008,Story,To Do,Medium,Dmytro Shevchuk,Kateryna Melnyk,15/Sep/26 12:00 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Backend,Admin,,booking,,8,DHS-90,,"Store capacity per enclosure type (summer, winter, single large dog). GET /api/availability?from=&to= returns
+free places per date. Data model still open, see call notes from 14 Sep.",,,
+[BE] Send 'booking-confirmed' e-mail when status changes to CONFIRMED,DHS-117,52009,Story,To Do,Medium,Dmytro Shevchuk,Kateryna Melnyk,06/Oct/26 03:05 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Backend,,,booking,notifications,2,DHS-90,,"Handle BookingStatusChanged(CONFIRMED) and send template ""booking-confirmed"" to the client
+(dates, address, what to bring: vaccination passport, food). Blocked by DHS-118 (SMTP).",,,DHS-118
+"[FE][BE] Booking form: vaccination passport upload (jpg/png, 5 MB)",DHS-121,52010,Story,To Do,Medium,Sofiia Lysenko,Kateryna Melnyk,07/Oct/26 10:45 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,Backend,,booking,,5,DHS-90,,"File input in the booking form, upload via POST /api/files to blob storage, save file_id on booking_request,
+show the link in admin request details. Added to the release on 7 Oct.",,,DHS-101
+[Admin] Export bookings to .xlsx,DHS-124,52011,Story,To Do,Low,Sofiia Lysenko,Kateryna Melnyk,10/Oct/26 09:15 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Admin,,,booking,,3,DHS-90,,Button on /admin/bookings that downloads the current filter as .xlsx (ClosedXML). Columns not agreed yet.,,,DHS-104
+[FE] Adopt button and AdoptionApplicationForm on /want-a-friend/dog/{id},DHS-107,52012,Story,To Do,High,Andrii Koval,Kateryna Melnyk,15/Sep/26 01:00 PM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Frontend,,,adoption,,3,DHS-91,,"Add the ""Adopt"" button to the dog profile and a modal form: name, phone, experience with dogs, housing.
+Submit to POST /api/adoption-applications (dogId in the body).
+
+h3. Acceptance criteria
+* Given a dog profile, when ""Adopt"" is clicked, then the form opens
+* Given a valid form, when Submit is clicked, then the application is saved with the dogId
+* Given the dog has status ADOPTED, then the button is not rendered",DHS-108,,
+[Admin] Applications tab on the dog page,DHS-108,52013,Story,To Do,Medium,Andrii Koval,Kateryna Melnyk,15/Sep/26 01:20 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Admin,,,adoption,,3,DHS-91,,Show the dog's adoption applications in admin as a list.,,,DHS-107
+[Admin] Status ADOPTED hides the dog from /want-a-friend,DHS-109,52014,Story,Done,Medium,Andrii Koval,Kateryna Melnyk,08/Sep/26 10:00 AM,15/Oct/26 06:10 PM,DH Sprint 14,,R2026.4 Booking & Adoption,Admin,,,adoption,,2,DHS-91,,"Add status ADOPTED to the dog edit form; the public list filters it out.
+
+h3. Acceptance criteria
+* Given a dog is set to ADOPTED in admin, then it is not returned by GET /api/dogs/public within 1 minute (cache)",,,
+"[Admin] New admin layout, navigation and dashboard charts",DHS-110,52015,Story,To Do,Low,Andrii Koval,Andrii Koval,20/Sep/26 05:30 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Admin,Design,,admin,,13,,,"Rework the admin shell (sidebar, header) and add a dashboard with charts (bookings per month, adoptions).
+Proposed by the FE team. No design and no breakdown yet.",,,
+[FE] Instagram feed widget on /home (Basic Display API),DHS-111,52016,Story,To Do,Low,Sofiia Lysenko,Kateryna Melnyk,08/Oct/26 11:10 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,,,home,,3,,,"Fetch the last 6 posts with the Instagram Basic Display API and render a grid on /home.
+Needs a long-lived token and a refresh job. Added to the release on 8 Oct.",,,
+[FE] Dark theme: CSS variables and toggle in the header,DHS-112,52017,Story,To Do,Low,Sofiia Lysenko,Sofiia Lysenko,09/Oct/26 08:40 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,,,ui,,5,,,"Move colours to CSS variables, add a dark palette and a toggle in the header; save the choice in localStorage.",,,
+[BE] Honeypot check for the contact form,DHS-116,52018,Story,Done,Medium,Dmytro Shevchuk,Kateryna Melnyk,03/Sep/26 10:00 AM,15/Oct/26 06:10 PM,DH Sprint 14,,R2026.4 Booking & Adoption,Frontend,Backend,,security,,2,DHS-92,,"Hidden field ""website"" in the contact form; the API drops the message when it is filled.
+
+h3. Acceptance criteria
+* Given the hidden field is filled, then the message is dropped and logged as spam
+* Given the hidden field is empty, then the message is delivered as before",,,
+[FE] /prices: separate table for additional services,DHS-120,52019,Story,To Do,Medium,Andrii Koval,Kateryna Melnyk,16/Sep/26 02:00 PM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Frontend,,,prices,,2,,,"Split the price list: grooming, vet help and transport go into a second table ""Additional services"".
+
+h3. Acceptance criteria
+* Given /prices is open, then ""Additional services"" is a separate table with one price per service
+* Given a 375 px screen, then the table scrolls horizontally inside its card",,,
+[FE] Blog: category filter chips,DHS-119,52020,Story,To Do,Low,Andrii Koval,Kateryna Melnyk,18/Sep/26 04:00 PM,15/Oct/26 06:10 PM,,,R2027.1,Frontend,,,blog,,3,,,"Chips above the article list, filter by category from the CMS (already in the API).",,,
+[BE] Reviews API: submit and moderation,DHS-123,52021,Story,To Do,Low,Dmytro Shevchuk,Kateryna Melnyk,22/Sep/26 10:30 AM,15/Oct/26 06:10 PM,,,R2027.1,Backend,Admin,,reviews,,5,,,POST /api/reviews (status PENDING) and PATCH /api/admin/reviews/{id} to approve or reject.,,,
+"[DevOps] Configure SMTP relay on prod (provider, SPF/DKIM, secrets)",DHS-118,52022,Task,To Do,High,Maksym Tkachenko,Maksym Tkachenko,12/Sep/26 12:00 PM,15/Oct/26 06:10 PM,,,R2027.1,DevOps,,,infra,,2,DHS-92,,"No mail provider on prod. Choose a provider (free tier), add SPF/DKIM DNS records, put SMTP credentials into the
+prod secrets, smoke-test MailService. Planned for R2027.1 because of DevOps capacity.",DHS-105,DHS-117,
+[FE] Upgrade Angular 12 to 17,DHS-122,52023,Task,To Do,Medium,Andrii Koval,Andrii Koval,11/Sep/26 06:00 PM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,,,tech-debt,,5,DHS-92,,"Angular 12 is out of support. Upgrade 12 > 14 > 16 > 17 with ng update, fix breaking changes,
+update RxJS and the UI kit.
+
+h3. Definition of done
+* Build and unit tests are green
+* Full regression passed on staging (DHS-137)",,,
+[FE] /want-a-friend: filters reset on pagination,DHS-113,52024,Bug,To Do,High,Andrii Koval,Oleh Savchuk,25/Sep/26 11:20 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Frontend,,,adoption,,,DHS-92,,"Steps to reproduce:
+1. Open /want-a-friend
+2. Set Size = Large
+3. Go to page 2
+Expected: the filter stays Large. Actual: the filter resets to All.
+Env: prod, Chrome 129, Windows 11. Probably the filter is not kept in the query string.",,,
+[FE] /prices: table overflows below 400 px,DHS-114,52025,Bug,Done,Medium,Andrii Koval,Oleh Savchuk,05/Sep/26 03:00 PM,15/Oct/26 06:10 PM,DH Sprint 14,,R2026.4 Booking & Adoption,Frontend,,,mobile,,,DHS-92,,Steps: open /prices on iPhone SE (375 px). Actual: the table goes outside the screen.,,,
+[BE] POST /api/newsletter returns 500 on prod,DHS-115,52026,Bug,In Progress,High,Dmytro Shevchuk,Oleh Savchuk,28/Sep/26 09:40 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Backend,,,prod,,,DHS-92,,"POST /api/newsletter returns 500 for any e-mail.
+Log: NullReferenceException in SubscriptionService.Save, setting MailingListId is missing in prod config.
+Regression since release R2026.3.",,,
+FE: form layout and field components,DHS-130,52027,Sub-task,Done,Medium,Andrii Koval,Andrii Koval,11/Sep/26 10:00 AM,15/Oct/26 06:10 PM,DH Sprint 15,,R2026.4 Booking & Adoption,Frontend,,,,,,,DHS-101,"Layout from Figma, responsive down to 375 px.",,,
+FE: client-side validation,DHS-131,52028,Sub-task,In Progress,Medium,Andrii Koval,Andrii Koval,11/Sep/26 10:05 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Frontend,,,,,,,DHS-101,"Required fields, date range, phone format.",,,
+BE: EF migration for booking_request,DHS-132,52029,Sub-task,Done,Medium,Dmytro Shevchuk,Dmytro Shevchuk,11/Sep/26 11:00 AM,15/Oct/26 06:10 PM,DH Sprint 15,,R2026.4 Booking & Adoption,Backend,,,,,,,DHS-102,"Columns, indexes on status and date_from.",,,
+BE: unit tests for BookingValidator,DHS-135,52030,Sub-task,In Progress,Medium,Dmytro Shevchuk,Dmytro Shevchuk,11/Sep/26 11:10 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,Backend,,,,,,,DHS-102,"Date range, phone, required fields.",,,
+QA: test cases for the booking form,DHS-133,52031,Sub-task,To Do,Medium,Oleh Savchuk,Oleh Savchuk,14/Sep/26 09:30 AM,15/Oct/26 06:10 PM,DH Sprint 16,,R2026.4 Booking & Adoption,QA,,,,,,,DHS-101,"Positive, negative and mobile cases in the test plan.",,,
+QA: test cases for the adoption form,DHS-134,52032,Sub-task,To Do,Medium,Oleh Savchuk,Oleh Savchuk,16/Sep/26 09:30 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,QA,,,,,,,DHS-107,"Form, validation, hidden button for adopted dogs.",,,
+FE: hide Adopt button for ADOPTED dogs,DHS-136,52033,Sub-task,To Do,Medium,Andrii Koval,Andrii Koval,16/Sep/26 10:00 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,Frontend,,,,,,,DHS-107,Read dog.status from GET /api/dogs/{id}.,,,
+QA: full regression after the Angular upgrade,DHS-137,52034,Sub-task,To Do,Medium,Oleh Savchuk,Oleh Savchuk,12/Sep/26 09:00 AM,15/Oct/26 06:10 PM,,,R2026.4 Booking & Adoption,QA,,,,,,,DHS-122,"Public site and admin, Chrome / Safari / mobile.",,,

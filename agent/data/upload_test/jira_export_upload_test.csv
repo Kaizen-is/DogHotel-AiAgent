@@ -1,0 +1,46 @@
+Summary,Issue key,Issue id,Issue Type,Status,Priority,Assignee,Reporter,Created,Updated,Sprint,Sprint,Fix Version/s,Component/s,Component/s,Labels,Labels,Custom field (Story Points),Custom field (Epic Link),Parent,Description,Outward issue link (Blocks),Outward issue link (Blocks),Inward issue link (Blocks)
+Admin tools,DHU-190,61000,Epic,In Progress,High,,Iryna Bondar,05/Sep/26 09:00 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Admin,,admin,,,,,"Scope: bookings calendar, price editor, search in admin.",,,
+E-mail notifications,DHU-191,61001,Epic,To Do,High,,Iryna Bondar,05/Sep/26 09:10 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Backend,,notifications,,,,,Scope: transactional e-mails for bookings and adoption via MailService.,,,
+[Admin] /admin/calendar: month view of confirmed bookings,DHU-201,61002,Story,In Progress,High,Andrii Koval,Kateryna Melnyk,08/Sep/26 10:15 AM,16/Oct/26 09:00 AM,DH Sprint 17,DH Sprint 18,R2026.5 Admin & Notifications,Admin,,calendar,,5,DHU-190,,"Month grid with confirmed stays as bars; data from GET /api/admin/calendar?month=YYYY-MM (DHU-231).
+
+h3. Acceptance criteria
+* Given confirmed bookings exist, when /admin/calendar opens, then each stay is shown on its dates
+* Given a day has no free places, then the day cell is red
+* Given a stay bar is clicked, then the booking details panel opens",,,
+[Admin] Bookings calendar,DHU-202,61003,Story,To Do,Medium,Sofiia Lysenko,Sofiia Lysenko,02/Oct/26 04:40 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Admin,,calendar,,3,DHU-190,,Calendar with bookings in admin.,,,
+[BE] Send 'booking-new' e-mail to the hotel mailbox,DHU-203,61004,Story,To Do,High,Dmytro Shevchuk,Kateryna Melnyk,08/Sep/26 11:00 AM,16/Oct/26 09:00 AM,DH Sprint 18,,R2026.5 Admin & Notifications,Backend,,notifications,,2,DHU-191,,"Handle BookingCreated, send template ""booking-new"" with MailService.
+
+h3. Acceptance criteria
+* Given a booking is created, then the e-mail is sent within 5 minutes
+* The e-mail contains dates, dog name, size and a link to /admin/bookings/{id}",,,DHU-209
+[BE][Admin] Price editor: PUT /api/admin/prices and /admin/prices page,DHU-204,61005,Story,To Do,High,Dmytro Shevchuk,Kateryna Melnyk,09/Sep/26 09:30 AM,16/Oct/26 09:00 AM,DH Sprint 18,,R2026.5 Admin & Notifications,Admin,Backend,prices,,5,DHU-190,,"Admin page to edit the price list; PUT /api/admin/prices saves it and clears the /prices cache.
+
+h3. Acceptance criteria
+* Given a price is changed and saved, then GET /api/prices returns the new value
+* Given a non-numeric price, then the API returns 400 and the field shows an error
+* Every change is written to price_audit (user, time, old value, new value)",,,
+[Admin] Dashboard with charts,DHU-205,61006,Story,To Do,Low,Andrii Koval,Andrii Koval,10/Sep/26 02:00 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Admin,Design,dashboard,,13,DHU-190,,"Charts for bookings per month, popular services, adoptions and site visits. Chart library not chosen yet.",,,
+[BE] Reminder e-mail job one day before arrival,DHU-206,61007,Story,To Do,Medium,Dmytro Shevchuk,Kateryna Melnyk,06/Oct/26 12:20 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Backend,,notifications,,3,DHU-191,,"Hangfire job at 10:00 daily, template 'booking-reminder' with what to bring. Needs SMTP (DHU-209).",,,DHU-209
+[FE] Christmas theme for /home,DHU-207,61008,Story,To Do,Low,Sofiia Lysenko,Sofiia Lysenko,09/Oct/26 06:05 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Frontend,,ui,,3,,,"Snow animation and seasonal header image, switched on by a date flag.",,,
+[FE][BE] Chat bot widget on the public site,DHU-208,61009,Story,To Do,Low,Sofiia Lysenko,Kateryna Melnyk,12/Oct/26 10:00 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Frontend,Backend,ai,,8,,,Floating widget that answers questions about prices and rules. Provider and hosting not chosen.,,,
+[Admin] Search bookings by phone or dog name,DHU-214,61010,Story,To Do,Medium,Andrii Koval,Kateryna Melnyk,16/Sep/26 11:40 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Admin,,search,,3,DHU-190,,Search field above /admin/bookings; GET /api/admin/bookings?q= with LIKE on phone and dog name.,,,
+[BE][Admin] Notification settings for the hotel account,DHU-216,61011,Story,To Do,Low,Dmytro Shevchuk,Kateryna Melnyk,14/Oct/26 09:00 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Backend,Admin,notifications,,3,DHU-191,,"Settings table + /admin/settings/notifications: on/off for booking-new, booking-cancelled, adoption-new.",,,
+[BE] Send 'adoption-new' e-mail to the hotel mailbox,DHU-218,61012,Story,To Do,Medium,Dmytro Shevchuk,Kateryna Melnyk,18/Sep/26 10:10 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Backend,,notifications,adoption,2,DHU-191,,"Handle AdoptionApplicationCreated, send template ""adoption-new"".
+
+h3. Acceptance criteria
+* Given an application is created, then the e-mail with the dog's name and the applicant's contacts is sent",,,DHU-209
+[Admin] 'Paid' flag on a booking,DHU-210,61013,Story,Done,Medium,Andrii Koval,Kateryna Melnyk,05/Sep/26 03:15 PM,16/Oct/26 09:00 AM,DH Sprint 17,,R2026.5 Admin & Notifications,Admin,,payments,,2,DHU-190,,"h3. Acceptance criteria
+* Given a booking, when the Paid checkbox is ticked, then is_paid is saved and the list shows a ""Paid"" label",,,
+[Admin] Export monthly bookings to .xlsx,DHU-217,61014,Story,To Do,Low,Andrii Koval,Kateryna Melnyk,17/Sep/26 02:30 PM,16/Oct/26 09:00 AM,,,R2027.1,Admin,,export,,3,,,ClosedXML export of one month of bookings.,,,
+"[DevOps] SMTP relay on prod: provider, SPF/DKIM, secrets",DHU-209,61015,Task,To Do,High,Maksym Tkachenko,Maksym Tkachenko,08/Sep/26 11:30 AM,16/Oct/26 09:00 AM,,,R2027.1,DevOps,,infra,,2,,,No mail service on prod. Planned for R2027.1 because of DevOps capacity.,DHU-203,DHU-206,
+[Admin] Migrate admin forms and tables to the new UI kit,DHU-215,61016,Task,To Do,Medium,Andrii Koval,Andrii Koval,11/Sep/26 04:00 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Admin,,tech-debt,,5,,,"Old admin components are not supported. Replace forms and tables, then a visual regression check.",,,
+[BE] Admin session expires after about 5 minutes,DHU-211,61017,Bug,In Progress,High,Dmytro Shevchuk,Oleh Savchuk,22/Sep/26 09:10 AM,16/Oct/26 09:00 AM,DH Sprint 18,,R2026.5 Admin & Notifications,Backend,,auth,,,,,"Steps: 1. Log in to admin. 2. Wait 5 minutes. 3. Open /admin/bookings.
+Expected: still logged in. Actual: redirect to /login.
+Probably the refresh-token cookie is dropped (SameSite=Strict on a cross-site redirect).",,,
+[BE] /prices shows old prices after saving,DHU-212,61018,Bug,To Do,Medium,Dmytro Shevchuk,Oleh Savchuk,30/Sep/26 05:45 PM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,Backend,,prices,cache,,,,"Steps: change a price in admin, open /prices.
+Expected: the new price. Actual: the old price until the output cache expires (about 1 hour).",,,DHU-204
+[FE] Adoption profile shows another dog's photo,DHU-213,61019,Bug,Done,Low,Andrii Koval,Oleh Savchuk,15/Sep/26 01:00 PM,16/Oct/26 09:00 AM,DH Sprint 17,,R2026.5 Admin & Notifications,Frontend,,adoption,,,,,"Profile of Mika shows the photo of Julia. Cause: image cache key by name, not by id.",,,
+FE: month grid component,DHU-230,61020,Sub-task,Done,Medium,Andrii Koval,Andrii Koval,09/Sep/26 10:00 AM,16/Oct/26 09:00 AM,DH Sprint 17,,R2026.5 Admin & Notifications,Admin,,,,,,DHU-201,Month grid with stays as bars.,,,
+BE: GET /api/admin/calendar?month=,DHU-231,61021,Sub-task,In Progress,Medium,Dmytro Shevchuk,Dmytro Shevchuk,09/Sep/26 10:30 AM,16/Oct/26 09:00 AM,DH Sprint 18,,R2026.5 Admin & Notifications,Backend,,,,,,DHU-201,Stays per day for one month.,,,
+BE: price_audit table and writes,DHU-232,61022,Sub-task,To Do,Medium,Dmytro Shevchuk,Dmytro Shevchuk,10/Sep/26 09:00 AM,16/Oct/26 09:00 AM,DH Sprint 18,,R2026.5 Admin & Notifications,Backend,,,,,,DHU-204,EF migration + insert on every save.,,,
+QA: regression for admin after the session fix,DHU-233,61023,Sub-task,To Do,Medium,Oleh Savchuk,Oleh Savchuk,23/Sep/26 09:30 AM,16/Oct/26 09:00 AM,,,R2026.5 Admin & Notifications,QA,,,,,,DHU-211,"Login, token refresh, long idle session.",,,

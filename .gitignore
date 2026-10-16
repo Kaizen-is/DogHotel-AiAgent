@@ -1,0 +1,18 @@
+# Personal internship working files, not part of the project repository
+notes/
+demo/
+feedback/
+
+# Secrets and local environment
+agent/.env
+agent/.venv/
+**/__pycache__/
+**/.pytest_cache/
+
+# Local data and run results
+agent/audit/
+agent/data/real/
+agent/eval/results/
+
+# Office lock files
+~$*

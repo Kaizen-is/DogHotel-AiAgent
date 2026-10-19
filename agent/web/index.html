@@ -2,35 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c2721">
   <title>Dog Hotel · Scope Control</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230f6e56'/%3E%3Cg fill='white' transform='translate(2.4 2.4) scale(.8)'%3E%3Ccircle cx='6.5' cy='9.5' r='2'/%3E%3Ccircle cx='10.5' cy='5.5' r='2'/%3E%3Ccircle cx='15.5' cy='5.8' r='2'/%3E%3Ccircle cx='19' cy='10' r='1.9'/%3E%3Cpath d='M7.5 17.5c0-2.8 2.3-5.5 5.3-5.5s4.9 2.7 4.9 4.9c0 2-1.5 2.8-3.2 2.8-1.3 0-1.9-.7-3.2-.7s-2 .7-3.2.7c-1 0-.6-1.2-.6-2.2z'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#/home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="9.5" r="2"/><circle cx="10.5" cy="5.5" r="2"/><circle cx="15.5" cy="5.8" r="2"/><circle cx="19" cy="10" r="1.9"/><path d="M7.5 17.5c0-2.8 2.3-5.5 5.3-5.5s4.9 2.7 4.9 4.9c0 2-1.5 2.8-3.2 2.8-1.3 0-1.9-.7-3.2-.7s-2 .7-3.2.7c-1 0-.6-1.2-.6-2.2z"/></svg>
-      </span>
-      <span class="brand-text"><strong>Dog Hotel</strong><span>Scope Control</span></span>
-    </a>
-    <button class="data-pill" id="dataPill" type="button" onclick="location.hash='#/home'"></button>
-  </header>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#/home" aria-label="Dog Hotel Scope Control, go to Overview">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="9.5" r="2"/><circle cx="10.5" cy="5.5" r="2"/><circle cx="15.5" cy="5.8" r="2"/><circle cx="19" cy="10" r="1.9"/><path d="M7.5 17.5c0-2.8 2.3-5.5 5.3-5.5s4.9 2.7 4.9 4.9c0 2-1.5 2.8-3.2 2.8-1.3 0-1.9-.7-3.2-.7s-2 .7-3.2.7c-1 0-.6-1.2-.6-2.2z"/></svg>
+        </span>
+        <span class="brand-text"><strong>Dog Hotel</strong><span>Scope Control</span></span>
+      </a>
 
-  <div class="layout">
-    <nav class="sidebar" aria-label="Main">
-      <a href="#/home" data-page="home"><span class="icon" data-icon="home"></span>Overview</a>
-      <a href="#/request" data-page="request"><span class="icon" data-icon="message"></span>Check a request</a>
-      <a href="#/health" data-page="health"><span class="icon" data-icon="activity"></span>Release health</a>
-      <a href="#/ask" data-page="ask"><span class="icon" data-icon="help"></span>Ask a question</a>
-      <a href="#/history" data-page="history"><span class="icon" data-icon="clock"></span>History</a>
+      <nav class="nav" aria-label="Main">
+        <div class="nav-title">Menu</div>
+        <a href="#/home" data-page="home"><span class="icon" data-icon="grid"></span><span class="nav-text">Overview</span><span class="nav-short">Overview</span></a>
+        <a href="#/request" data-page="request"><span class="icon" data-icon="message"></span><span class="nav-text">Check a request</span><span class="nav-short">Request</span></a>
+        <a href="#/health" data-page="health"><span class="icon" data-icon="activity"></span><span class="nav-text">Release health</span><span class="nav-short">Health</span></a>
+        <a href="#/ask" data-page="ask"><span class="icon" data-icon="help"></span><span class="nav-text">Ask a question</span><span class="nav-short">Ask</span></a>
+        <a href="#/history" data-page="history"><span class="icon" data-icon="clock"></span><span class="nav-text">History</span><span class="nav-short">History</span></a>
+      </nav>
+
       <div class="sidebar-note">
-        <strong>Advice only</strong>
+        <strong><span class="icon" data-icon="shield"></span>Advice only</strong>
         The agent suggests. The project manager decides.
       </div>
-    </nav>
+    </aside>
 
-    <main id="page" class="page" tabindex="-1"></main>
+    <div class="main">
+      <header class="topbar">
+        <a class="brand" href="#/home" aria-label="Dog Hotel Scope Control, go to Overview">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="9.5" r="2"/><circle cx="10.5" cy="5.5" r="2"/><circle cx="15.5" cy="5.8" r="2"/><circle cx="19" cy="10" r="1.9"/><path d="M7.5 17.5c0-2.8 2.3-5.5 5.3-5.5s4.9 2.7 4.9 4.9c0 2-1.5 2.8-3.2 2.8-1.3 0-1.9-.7-3.2-.7s-2 .7-3.2.7c-1 0-.6-1.2-.6-2.2z"/></svg>
+          </span>
+          <span class="brand-text"><strong>Dog Hotel</strong><span>Scope Control</span></span>
+        </a>
+        <button class="data-pill" id="dataPill" type="button" onclick="location.hash='#/home'"></button>
+        <span class="ai-status" id="aiStatus" role="status"></span>
+      </header>
+
+      <main id="page" class="page" tabindex="-1"></main>
+    </div>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

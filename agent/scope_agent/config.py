@@ -10,7 +10,7 @@ load_dotenv(AGENT_DIR / ".env", override=True)
 
 # The AI behind the agent is fixed on purpose: users don't choose models or settings.
 AI_MODEL = "gpt-5.5"
-AI_EFFORT = "medium"
+AI_EFFORT = "low"
 
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 DATA_DIR = AGENT_DIR / "data"

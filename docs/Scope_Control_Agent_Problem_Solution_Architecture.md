@@ -397,7 +397,7 @@ DogHotelIsomiddin/
 | LLM output may be wrong or overconfident | Rules anchor the facts; validated schema; human approval; evaluation on labelled cases |
 | Limited access to real Jira/KB (device and VPN requirements) | CSV/markdown exports; teammate or PM shares an export; sample data clearly labelled until then |
 | Small evaluation set (2-month internship) | Present results as a pilot study; describe the threats to validity in the report |
-| Cost and latency of a large model | Rules do the cheap work; prompt caching for repeated context; a fixed, moderate reasoning setting |
+| Cost and latency of a large model | Rules do the cheap work; prompt caching for repeated context; a fixed, low reasoning setting (about 10 seconds per request and under 30 seconds for a full release check, with the same evaluation results as a higher setting) |
 | Adoption by a volunteer team | Zero-install option through CodeMie; outputs in the team's own story format |
 
 ### 4.10 Roadmap
